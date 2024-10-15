@@ -131,4 +131,3 @@ function shoot (e) {
 }
 
 document.addEventListener('keydown', shoot)
-
