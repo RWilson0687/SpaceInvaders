@@ -4,6 +4,7 @@
     border: solid black 1px;
     display: flex;
     flex-wrap: wrap;
+    background-color: #444; /* Background color of the grid */
 }
 
 .grid div {
@@ -11,19 +12,50 @@
     height: 20px;
 }
 
+/* Invader, shooter, laser, and explosion styles */
 .invader {
     background-color: purple;
-    border-radius: 10px;
+    border-radius: 50%;
 }
 
 .shooter {
     background-color: blue;
 }
 
-.laser{
+.laser {
     background-color: orange;
+    border-radius: 50%;
 }
 
 .boom {
     background-color: rgb(255, 0, 0);
+    border-radius: 50%;
 }
+
+/* Ensure the body takes the full viewport height and centers content */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align items at the top */
+    align-items: center;
+    background-color: #282c34;
+    font-family: Arial, sans-serif;
+    color: white;
+}
+
+
+/* Game container is centered both horizontally and vertically */
+.game-container {
+    position: relative;
+    width: 800px; /* Adjusted size for uniformity */
+    height: 600px; /* Adjusted size for uniformity */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px;
+    background-color: black;
+    border: 5px solid white;
+}
+

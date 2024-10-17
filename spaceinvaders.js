@@ -39,7 +39,6 @@ function remove () {
 
 // squares[currentShooterIndex].classList.add('shooter')
 
-
 function moveShooter (e){
     squares[currentShooterIndex].classList.remove('shooter')
     switch(e.key) {
@@ -100,35 +99,54 @@ function moveInvaders () {
 }
 invadersId = setInterval(moveInvaders, 500)
 
-function shoot (e) {
-    let laserId
-    let currentLaserIndex = currentShooterIndex
+function shoot(e) {
+    let laserId;
+    let currentLaserIndex = currentShooterIndex;
+
     function moveLaser() {
-        squares[currentLaserIndex].classList.remove('laser')
-        currentLaserIndex -= width
-        squares[currentLaserIndex].classList.add('laser')
+        // Remove the previous laser position
+        squares[currentLaserIndex].classList.remove('laser');
+        currentLaserIndex -= width; // Move the laser up
 
+        // Check if the laser is out of bounds (above the grid)
+        if (currentLaserIndex < 0) {
+            clearInterval(laserId); // Stop the laser if it goes out of bounds
+            return; // Exit the function to prevent errors
+        }
+
+        // Add the new laser position
+        squares[currentLaserIndex].classList.add('laser');
+
+        // Check if the laser hits an invader
         if (squares[currentLaserIndex].classList.contains('invader')) {
-            squares [currentLaserIndex].classList.remove('laser')
-            squares [currentLaserIndex].classList.remove('invader')
-            squares [currentLaserIndex].classList.add('boom')
+            squares[currentLaserIndex].classList.remove('laser');
+            squares[currentLaserIndex].classList.remove('invader');
+            squares[currentLaserIndex].classList.add('boom');
 
-            setTimeout(() => squares[currentLaserIndex].classList.remove('boom'), 300)
-            clearInterval(laserId)
+            setTimeout(() => squares[currentLaserIndex].classList.remove('boom'), 300);
+            clearInterval(laserId);
 
-            const alienRemoved = alienInvaders.indexOf(currentLaserIndex)
-            aliensRemoved.push(alienRemoved)
-            results++
-            resultsDisplay.innerHTML = results
+            const alienRemoved = alienInvaders.indexOf(currentLaserIndex);
+            if (alienRemoved !== -1) {
+                aliensRemoved.push(alienRemoved);
+                results++;
+                resultsDisplay.innerHTML = results;
 
+                // Check if all aliens are removed (win condition)
+                if (aliensRemoved.length === alienInvaders.length) {
+                    resultsDisplay.innerHTML = 'You Win!';
+                    clearInterval(invadersId); // Stop the game if all aliens are destroyed
+                }
+            }
         }
+    }
 
-        }
-        switch(e.key) {
-            case 'ArrowUp':
-                laserId = setInterval(moveLaser, 100)
+    // Trigger the laser movement on arrow up press
+    switch (e.key) {
+        case 'ArrowUp':
+            laserId = setInterval(moveLaser, 100);
+            break;
     }
 }
 
 document.addEventListener('keydown', shoot)
-
