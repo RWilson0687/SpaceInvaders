@@ -150,3 +150,8 @@ function shoot(e) {
 }
 
 document.addEventListener('keydown', shoot)
+
+//Function to refresh the page
+function refreshPage() {
+    location.reload(); // Reloads the page
+}
